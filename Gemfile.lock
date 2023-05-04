@@ -2,11 +2,31 @@ PATH
   remote: .
   specs:
     luo (0.1.0)
+      dotenv (~> 2.7, >= 2.7.6)
+      http.rb (~> 0.12.0)
+      zeitwerk (~> 2.6, >= 2.6.8)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    diff-lcs (1.5.0)
+    dotenv (2.8.1)
+    http.rb (0.12.0)
     rake (13.0.6)
+    rspec (3.12.0)
+      rspec-core (~> 3.12.0)
+      rspec-expectations (~> 3.12.0)
+      rspec-mocks (~> 3.12.0)
+    rspec-core (3.12.2)
+      rspec-support (~> 3.12.0)
+    rspec-expectations (3.12.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-mocks (3.12.5)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.12.0)
+    rspec-support (3.12.0)
+    zeitwerk (2.6.8)
 
 PLATFORMS
   arm64-darwin-22
@@ -14,6 +34,7 @@ PLATFORMS
 DEPENDENCIES
   luo!
   rake (~> 13.0)
+  rspec (~> 3.12)
 
 BUNDLED WITH
    2.4.6

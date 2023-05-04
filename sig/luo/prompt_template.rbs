@@ -1,0 +1,16 @@
+module Luo
+  class PromptTemplate
+    @file_path: string
+    @template: ERB
+
+    def self.create: -> PromptTemplate
+
+    def self.load_template: -> PromptTemplate
+
+    def render: -> string
+
+    private
+
+    def context_binding: -> untyped
+  end
+end

@@ -29,7 +29,12 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
+  spec.add_dependency 'zeitwerk', '~> 2.6', '>= 2.6.8'
+  spec.add_dependency 'http.rb', '~> 0.12.0'
+  spec.add_dependency 'dotenv', '~> 2.7', '>= 2.7.6'
   # spec.add_dependency "example-gem", "~> 1.0"
+
+  spec.add_development_dependency "rspec", '~> 3.12'
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
