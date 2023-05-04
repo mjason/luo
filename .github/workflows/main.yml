@@ -27,3 +27,5 @@ jobs:
       run: bundle exec rake
     - name: Run the tests
       run: bundle exec rspec
+      env:
+        OPENAI_ACCESS_TOKEN: 123
