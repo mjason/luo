@@ -2,7 +2,7 @@
 
 # require_relative "luo/version"
 
-require 'http'
+# require 'http'
 require 'erb'
 require 'dotenv/load'
 require 'json'
