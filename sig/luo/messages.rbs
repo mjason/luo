@@ -1,0 +1,15 @@
+module Luo
+  class Messages
+    @messages: Array[Hash[Symbol, String]]
+    @system: Hash[Symbol, String]
+
+    def self.create: -> Messages
+
+    def assistant: -> Messages
+    def system: -> Messages
+
+    def to_a: -> Array[Hash[Symbol, String]]
+
+    def user: -> Messages
+  end
+end

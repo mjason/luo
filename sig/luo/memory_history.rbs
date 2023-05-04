@@ -1,0 +1,18 @@
+module Luo
+  class MemoryHistory
+    @max_size: Integer
+    @queue: Array[Hash[String, String]]
+
+    def dequeue: -> untyped
+
+    def enqueue: -> untyped
+
+    alias push enqueue
+
+    def size: -> Integer
+
+    def to_a: -> Array[Hash[String, String]]
+
+    def to_json: -> String
+  end
+end

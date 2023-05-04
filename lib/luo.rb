@@ -5,6 +5,7 @@
 require 'http'
 require 'erb'
 require 'dotenv/load'
+require 'json'
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
