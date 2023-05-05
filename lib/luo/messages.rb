@@ -8,23 +8,29 @@ module Luo
       @system = {}
     end
 
-    def system(text: nil, file: '')
-      data = text || File.read(file)
-      @system = {role: "system", content: data}
-      self
+    def self.create_role_message_method(role)
+      define_method(role) do |text: nil, file: '', prompt: nil, context: {}|
+        if prompt.nil?
+          data = text || File.read(file)
+        else
+          data = prompt.render(context)
+        end
+        if role.to_s == "system"
+          @system = {role: role, content: data}
+        else
+          @messages << {role: role, content: data}
+        end
+        self
+      end
     end
 
-    def user(text: nil, file: '')
-      data = text || File.read(file)
-      @messages << {role: "user", content: data}
-      self
+    def self.create_role_message_methods
+      %w(system user assistant).each do |role|
+        create_role_message_method(role)
+      end
     end
 
-    def assistant(text: nil, file: '')
-      data = text || File.read(file)
-      @messages << {role: "assistant", content: data}
-      self
-    end
+    create_role_message_methods
 
     def to_a
       if @system.empty?

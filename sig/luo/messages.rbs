@@ -6,6 +6,10 @@ module Luo
 
     def self.create: -> Messages
 
+    def self.create_role_message_method: -> untyped
+
+    def self.create_role_message_methods: -> untyped
+
     def assistant: -> Messages
     def system: -> Messages
 

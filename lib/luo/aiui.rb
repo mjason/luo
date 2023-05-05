@@ -24,6 +24,9 @@ module Luo
     end
 
     def chat(messages)
+      if messages.is_a?(Messages)
+        messages = messages.to_a
+      end
       message = messages.last&.fetch(:content, nil)
       params = PARAMS.call(
         appid: config.id,

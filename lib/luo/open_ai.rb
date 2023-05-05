@@ -31,6 +31,9 @@ module Luo
     end
 
     def chat(messages)
+      if messages.is_a?(Messages)
+        messages = messages.to_a
+      end
       params = PARAMS.call(
         model: 'gpt-3.5-turbo',
         temperature: config.temperature,
