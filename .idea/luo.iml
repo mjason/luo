@@ -15,6 +15,7 @@
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.2.2, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.5.0, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dotenv (v2.8.1, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-cli (v1.0.0, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dry-configurable (v1.0.1, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dry-core (v1.0.0, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dry-inflector (v1.0.0, ruby-3.2.1-p31) [gem]" level="application" />
