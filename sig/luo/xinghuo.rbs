@@ -1,9 +1,9 @@
 module Luo
-  class AIUI
+  class Xinghuo
     PARAMS: untyped
 
     def chat: -> untyped
 
-    def request_aiui: -> untyped
+    def request_chat: -> untyped
   end
 end
