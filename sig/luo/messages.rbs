@@ -1,5 +1,6 @@
 module Luo
   class Messages
+    @history: Array[Hash[Symbol, String]]
     @messages: Array[Hash[Symbol, String]]
     @system: Hash[Symbol, String]
 

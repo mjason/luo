@@ -2,7 +2,8 @@
 
 module Luo
   class Messages
-    def initialize
+    def initialize(history: [])
+      @history = history
       @messages = []
       @system = {}
     end
@@ -27,15 +28,15 @@ module Luo
 
     def to_a
       if @system.empty?
-        @messages
+        @history.to_a + @messages
       else
-        @messages.unshift @system
+        (@history.to_a + @messages).unshift(@system)
       end
     end
 
     class << self
-      def create
-        self.new
+      def create(history: [])
+        self.new(history: history)
       end
     end
 

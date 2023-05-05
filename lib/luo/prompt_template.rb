@@ -12,6 +12,10 @@ module Luo
       @template.result(context_binding(context))
     end
 
+    def result()
+      @template.result(binding)
+    end
+
     private
     def context_binding(context)
       context.each do |key, value|

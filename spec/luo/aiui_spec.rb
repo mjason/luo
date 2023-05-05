@@ -21,7 +21,7 @@ RSpec.describe Luo::AIUI do
       let(:messages) { [] }
 
       it 'should return an error' do
-        expect(aiui.chat(messages).to_h).to include(:uid, :text)
+        expect(aiui.chat(messages).to_h).to include(:text)
       end
     end
 

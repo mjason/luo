@@ -9,6 +9,8 @@ module Luo
 
     def render: -> string
 
+    def result: -> String
+
     private
 
     def context_binding: -> untyped

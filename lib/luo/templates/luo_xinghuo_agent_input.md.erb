@@ -1,0 +1,11 @@
+在回答的我的问题的时候，你可以使用以下工具：
+<% @agents.values.each do |agent| -%>
+- <%= agent.agent_name %>：<%= agent.description %>
+<% end -%>
+
+问题：<%= @last_user_input %>
+请用以下格式回答问题
+```
+调用工具：你要选择的工具是什么？只能在智能问答，天气查询，家居控制中选择一个
+最终回答：你要回答的内容是什么？
+```

@@ -12,6 +12,7 @@ module Luo
     setting :auditing, default: 'default'
     setting :domain, default: 'general'
     setting :max_tokens, default: 1024
+    setting :uid, default: -> { SecureRandom.hex(16) }
 
     include HttpClient.init_client
 
@@ -35,7 +36,8 @@ module Luo
         domain: config.domain,
         messages: messages,
         max_tokens: config.max_tokens,
-        random_threshold: config.temperature
+        random_threshold: config.temperature,
+        uid: config.uid.call
       )
       return params.errors unless params.success?
       request_chat(params).body.dig('choices', 0, 'message', 'content')

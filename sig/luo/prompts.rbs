@@ -1,0 +1,15 @@
+module Luo
+  module Prompts
+    PWD: String
+    RUNTIME_TEMPLATES_DIR: String
+    TEMPLATES_DIR: String
+
+    def agent_input: -> PromptTemplate
+
+    def define_template: -> untyped
+
+    def define_templates: -> untyped
+
+    def define_templates_in_dir: -> untyped
+  end
+end

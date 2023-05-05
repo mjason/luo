@@ -8,6 +8,7 @@ module Luo
     setting :key, default: ENV.fetch('AIUI_APP_KEY')
     setting :host, default: 'http://api.iflyos.cn'
     setting :uid, default: -> { SecureRandom.hex(16) }
+    setting :retries, default: ENV.fetch('AIUI_REQUEST_RETRIES', 3).to_i
 
     include HttpClient.init_client
 
@@ -27,7 +28,7 @@ module Luo
       params = PARAMS.call(
         appid: config.id,
         appkey: config.key,
-        uid: config.uid,
+        uid: config.uid.call,
         text: message
       )
       return params.errors unless params.success?

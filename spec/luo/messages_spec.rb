@@ -75,4 +75,14 @@ RSpec.describe Luo::Messages do
       end
     end
   end
+
+  describe '.create' do
+    it 'should return an instance of Luo::Messages' do
+      expect(Luo::Messages.create).to be_instance_of(Luo::Messages)
+    end
+
+    it 'should return an instance of Luo::Messages with history' do
+      expect(Luo::Messages.create(history: [{role: 'user', content: 'User message'}])).to be_instance_of(Luo::Messages)
+    end
+  end
 end
