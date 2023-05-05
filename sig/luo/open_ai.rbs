@@ -1,0 +1,11 @@
+module Luo
+  class OpenAI
+    ACCESS_TOKEN: String
+    HOST: String
+    PARAMS: untyped
+
+    def chat: -> untyped
+
+    def chat_completions: -> untyped
+  end
+end

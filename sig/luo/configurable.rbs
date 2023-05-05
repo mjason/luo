@@ -1,0 +1,5 @@
+module Luo
+  module Configurable
+    def config: -> untyped
+  end
+end

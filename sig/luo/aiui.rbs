@@ -1,0 +1,7 @@
+module Luo
+  class AIUI
+    def chat: -> untyped
+
+    def request_aiui: -> untyped
+  end
+end

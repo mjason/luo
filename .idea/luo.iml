@@ -12,9 +12,19 @@
     <orderEntry type="jdk" jdkName="ruby-3.2.1-p31" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.4.6, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.2.2, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="diff-lcs (v1.5.0, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="dotenv (v2.8.1, ruby-3.2.1-p31) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="http.rb (v0.12.0, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-configurable (v1.0.1, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-core (v1.0.0, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-inflector (v1.0.0, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-initializer (v3.1.1, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-logic (v1.5.0, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-schema (v1.13.1, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="dry-types (v1.7.1, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday (v2.7.4, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday-net_http (v3.0.2, ruby-3.2.1-p31) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday-retry (v2.1.0, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rake (v13.0.6, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec (v3.12.0, ruby-3.2.1-p31) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rspec-core (v3.12.2, ruby-3.2.1-p31) [gem]" level="application" />

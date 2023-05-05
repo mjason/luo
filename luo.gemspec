@@ -30,8 +30,11 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   spec.add_dependency 'zeitwerk', '~> 2.6', '>= 2.6.8'
-  spec.add_dependency 'http.rb', '~> 0.12.0'
-  spec.add_dependency 'dotenv', '~> 2.7', '>= 2.7.6'
+  spec.add_dependency 'dotenv', '~> 2.8', '>= 2.8.1'
+  spec.add_dependency 'faraday', '~> 2.7', '>= 2.7.4'
+  spec.add_dependency 'faraday-retry', '~> 2.1'
+  spec.add_dependency 'dry-schema', '~> 1.13', '>= 1.13.1'
+  spec.add_dependency 'dry-configurable', '~> 1.0', '>= 1.0.1'
   # spec.add_dependency "example-gem", "~> 1.0"
 
   spec.add_development_dependency "rspec", '~> 3.12'

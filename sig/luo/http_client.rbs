@@ -1,0 +1,9 @@
+module Luo
+  module HttpClient
+    def self.http_client_configurable: -> untyped
+
+    def self.init_client: -> untyped
+
+    def http_client_configurable: -> untyped
+  end
+end
