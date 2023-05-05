@@ -1,0 +1,13 @@
+module Luo
+  class Agent
+    attr_reader self.agent_desc: String
+    attr_reader self.agent_name: String
+
+    def self.create_parameter_method: -> untyped
+
+    def self.on_call: -> untyped
+
+    attr_reader input: String
+    attr_reader row_input: String?
+  end
+end
