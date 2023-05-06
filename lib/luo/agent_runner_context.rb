@@ -17,6 +17,14 @@ module Luo
       @histories = histories
     end
 
+    def client
+      @client
+    end
+
+    def client=(client)
+      @client = client
+    end
+
     def have_running_agents
       @running_agents ||= Set.new
     end

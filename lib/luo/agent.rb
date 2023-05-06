@@ -2,10 +2,11 @@
 
 module Luo
   class Agent
-    attr_reader :context, :action_input
-    def initialize(context: nil, action_input: nil)
+    attr_reader :context, :action_input, :client
+    def initialize(context: nil, action_input: nil, client: nil)
       @context = context
       @action_input = action_input
+      @client = client
     end
 
     def call
@@ -15,6 +16,13 @@ module Luo
     class << self
       def on_call(&block)
         define_method(:call, &block)
+      end
+
+      def on_call_with_final_result(&block)
+        define_method(:call) do
+          context.final_result = instance_eval(&block)
+          context.final_result
+        end
       end
 
       def self.create_parameter_method(method_name, not_provided = Object.new, &block)

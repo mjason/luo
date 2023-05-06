@@ -16,7 +16,7 @@ RSpec.describe 'Luo::OpenAIAgentRunner' do
     end
   end
 
-  class Runner < Luo::OpenAIAgentRunner
+  class OpenAIRunner < Luo::OpenAIAgentRunner
     register WeatherAgent
   end
 
@@ -24,7 +24,7 @@ RSpec.describe 'Luo::OpenAIAgentRunner' do
     Luo::AgentRunnerBase.config.language = 'zh'
   end
 
-  let(:runner) { Runner.new }
+  let(:runner) { OpenAIRunner.new }
 
   it 'should return an answer' do
     context = runner.call('明天天气怎么样')

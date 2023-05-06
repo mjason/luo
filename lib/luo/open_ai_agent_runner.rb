@@ -22,7 +22,11 @@ module Luo
       actions = JSON.parse(context.response)
       actions = [actions] if actions.is_a?(Hash)
       actions.each do |action|
-        agent = self.class.agents[action['action']]&.new(context: context, action_input: action['action_input'])
+        agent = self.class.agents[action['action']]&.new(
+          context: context,
+          action_input: action['action_input'],
+          client: @openai
+        )
         add_agent(agent) if agent
         if action['action'] == "Final Answer"
           context.final_result = action['action_input']
