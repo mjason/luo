@@ -17,7 +17,7 @@ module Luo
     end
 
     on_result do
-      agent_name = context.response.match(/调用工具：(.*)/)&.captures&.first&.strip&.gsub(/[[:punct:]]/, '')
+      agent_name = context.response.match(/调用工具：(.*)/)&.captures&.last&.strip&.gsub(/[[:punct:]]/, '')
       agent = self.class.agents[agent_name]&.new(
         context: context,
         action_input: context.user_input,
