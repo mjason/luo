@@ -1,0 +1,7 @@
+module Luo
+  module Helpers
+    def load_test: (String) { (String) -> untyped }-> untyped
+
+    def print_md: (String) -> untyped
+  end
+end

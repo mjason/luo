@@ -10,6 +10,8 @@ require 'faraday/retry'
 require 'dry-configurable'
 require 'dry-schema'
 require 'dry/cli'
+require 'yaml'
+require 'tty-markdown'
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
