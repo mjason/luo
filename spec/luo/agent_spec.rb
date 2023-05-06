@@ -16,7 +16,7 @@ RSpec.describe 'Luo::Agent' do
     end
   end
 
-  let(:agent) { HelloAgent.new("hello") }
+  let(:agent) { HelloAgent.new(context: Luo::AgentRunnerContext.new, action_input: "manjia") }
 
   it "should greet you" do
     expect(agent.call).to eq("Hello, world!")

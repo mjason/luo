@@ -12,7 +12,6 @@ RSpec.describe Luo::AIUI do
     context 'when passing valid parameters' do
 
       it 'should return an answer' do
-        # binding.irb
         expect(aiui.chat(messages)).not_to be_nil
       end
     end

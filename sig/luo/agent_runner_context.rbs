@@ -1,0 +1,19 @@
+module Luo
+  class AgentRunnerContext
+    @histories: MemoryHistory
+
+    @running_agents: Array[Agent]
+
+    attr_accessor action_input: String
+    attr_accessor agent_results: Array[Hash[Symbol, string]]
+    attr_accessor final_result: String
+    attr_accessor messages: Messages
+    attr_accessor response: untyped
+    attr_accessor retries: Integer
+    attr_accessor user_input: String
+
+    def have_running_agents: -> Set[Agent]
+
+    def histories: -> MemoryHistory
+  end
+end

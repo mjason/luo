@@ -1,7 +1,15 @@
 module Luo
   class Agent
+    @action_input: untyped
+    @context: AgentRunnerContext
+
     attr_reader self.agent_desc: String
     attr_reader self.agent_name: String
+
+    attr_reader action_input: untyped
+    attr_reader context: AgentRunnerContext
+
+    def initialize: (AgentRunnerContext) -> untyped
 
     def self.create_parameter_method: -> untyped
 

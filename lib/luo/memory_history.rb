@@ -5,11 +5,14 @@ module Luo
   ##
   # 用来保存回话历史的简单内存队列
   class MemoryHistory
+    include Configurable
+
+    setting :max_size, default: 12
 
     ##
     # 初始化一个队列
     # @param [Integer] max_size 队列的最大长度
-    def initialize(max_size = 12)
+    def initialize(max_size = config.max_size)
       @queue = []
       @max_size = max_size
     end
@@ -21,6 +24,14 @@ module Luo
         @queue.shift
       end
       @queue << element
+    end
+
+    def user(content)
+      enqueue({role: "user", content: content})
+    end
+
+    def assistant(content)
+      enqueue({role: "assistant", content: content})
     end
 
     alias push enqueue

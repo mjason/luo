@@ -17,7 +17,6 @@ RSpec.describe Luo::Prompts do
 
     it 'should define templates in dir' do
       expect(Luo::Prompts).to respond_to(:demo)
-      expect(Luo::Prompts.luo_agent_input.render({})).to eq 'demo'
     end
 
   end

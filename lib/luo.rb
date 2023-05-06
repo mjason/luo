@@ -16,6 +16,7 @@ loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect("open_ai" => "OpenAI")
 loader.inflector.inflect("aiui" => "AIUI")
 loader.inflector.inflect("cli" => "CLI")
+loader.inflector.inflect("open_ai_agent_runner" => "OpenAIAgentRunner")
 loader.setup
 
 module Luo

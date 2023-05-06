@@ -2,10 +2,14 @@
 
 module Luo
   class Agent
-    attr_reader :row_input, :input
-    def initialize(input, row_input=nil)
-      @row_input = row_input
-      @input = input
+    attr_reader :context, :action_input
+    def initialize(context: nil, action_input: nil)
+      @context = context
+      @action_input = action_input
+    end
+
+    def call
+      raise NotImplementedError, "call method must be implemented in subclass"
     end
 
     class << self

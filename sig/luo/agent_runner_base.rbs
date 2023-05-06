@@ -1,0 +1,25 @@
+module Luo
+  class AgentRunnerBase
+    self.@agents: Hash[String, Agent]
+
+    @context: AgentRunnerContext
+
+    def self.agents: -> Hash[String, Agent]
+
+    def self.register: (Agent) -> untyped
+
+    def add_agent: (Agent)-> untyped
+
+    def call: -> untyped
+
+    def context: -> AgentRunnerContext
+
+    def on_request: -> untyped
+
+    def on_result: -> untyped
+
+    def on_run: -> untyped
+
+    def reset_context: -> untyped
+  end
+end
