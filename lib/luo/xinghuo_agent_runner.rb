@@ -13,22 +13,31 @@ module Luo
     on_request do
       context.messages = Messages.create(history: context.histories)
                                  .user(prompt: Luo::Prompts.luo_xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
-      context.response = @xinghuo.chat(context.messages)
+      response = @xinghuo.chat(context.messages)
+      if response.split("\n").select { |line| line.size >1  }.size > 1
+        binding.irb
+        message = Messages.create(history: context.histories)
+                          .user(prompt: Luo::Prompts.luo_xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                          .assistant(text: response)
+                          .user(prompt: Luo::Prompts.luo_xinghuo_response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
+        context.response = @xinghuo.chat(message)
+      else
+        context.response = response
+      end
     end
 
     on_result do
-      agent_name = context.response.match(/调用工具：(.*)/)&.captures&.last&.strip&.gsub(/[[:punct:]]/, '')
-      agent = self.class.agents[agent_name]&.new(
-        context: context,
-        action_input: context.user_input,
-        client: @xinghuo
-      )
-      answer = context.response.match(/最终回答：(.*)/)&.captures&.first&.strip
-
-      if agent_name.nil? && !answer.nil? && agent.nil?
-        context.final_result = answer
-      else
+      agent_name = context.response.scan(/调用工具(.*)/).flatten.reject(&:empty?).map(&:to_s)&.last&.gsub(/[[:punct:]]/, '')
+      if self.class.agents.include?(agent_name)
+        agent = self.class.agents[agent_name]&.new(
+          context: context,
+          action_input: context.user_input,
+          client: @xinghuo
+        )
         add_agent(agent)
+      else
+        messages = Messages.create(history: context.histories).user(text: context.user_input)
+        context.final_result = @xinghuo.chat(messages)
       end
     end
 

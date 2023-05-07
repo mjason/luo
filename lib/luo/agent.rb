@@ -20,8 +20,13 @@ module Luo
 
       def on_call_with_final_result(&block)
         define_method(:call) do
-          context.final_result = instance_eval(&block)
-          context.final_result
+          result = instance_eval(&block)
+          if result.nil?
+            messages = context.messages.to_a[0...-1] + [{role: :user, content: context.user_input}]
+            context.final_result = client.chat(messages)
+          else
+            context.final_result = result
+          end
         end
       end
 
