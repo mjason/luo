@@ -15,7 +15,6 @@ module Luo
                                  .user(prompt: Luo::Prompts.luo_xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
       response = @xinghuo.chat(context.messages)
       if response.split("\n").select { |line| line.size >1  }.size > 1
-        binding.irb
         message = Messages.create(history: context.histories)
                           .user(prompt: Luo::Prompts.luo_xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
                           .assistant(text: response)
