@@ -1,11 +1,16 @@
 module Luo
   class OpenAI
     ACCESS_TOKEN: String
+    EMBEDDING_PARAMS: untyped
     HOST: String
     PARAMS: untyped
 
     def chat: -> untyped
 
     def chat_completions: -> untyped
+
+    def create_embedding: -> untyped
+
+    def embeddings: -> untyped
   end
 end

@@ -26,8 +26,23 @@ module Luo
       optional(:user).maybe(:string)
     end
 
+    EMBEDDING_PARAMS = Dry::Schema.Params do
+      required(:input).filled(:string)
+      required(:model).filled(:string)
+    end
+
     def chat_completions(params)
       client.post('/v1/chat/completions', params.to_h)
+    end
+
+    def embeddings(params)
+      client.post('/v1/embeddings', params.to_h)
+    end
+
+    def create_embedding(text, model: 'text-embedding-ada-002')
+      params = EMBEDDING_PARAMS.call(input: text.gsub("\n", " "), model: model)
+      return params.errors unless params.success?
+      embeddings(params).body.dig("data", 0, 'embedding')
     end
 
     def chat(messages)

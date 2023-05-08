@@ -25,5 +25,24 @@ RSpec.describe Luo::OpenAI do
     end
 
   end
+
+  describe '#create_embedding' do
+    let(:text) { "hello world" }
+
+    context 'when passing valid parameters' do
+
+      it 'should return a response' do
+        expect(openai.create_embedding(text)).not_to be_nil
+      end
+    end
+
+    context 'when passing invalid parameters' do
+      let(:text) { nil }
+
+      it 'should return an error' do
+        expect(openai.create_embedding(text).to_h).to include(:input)
+      end
+    end
+  end
 end
 
