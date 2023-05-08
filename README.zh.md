@@ -6,4 +6,13 @@
 gem install luo
 ```
 
-## 使用
+## 环境变量说明
+```Bash
+OPENAI_ACCESS_TOKEN= # OpenAI的访问令牌
+OPENAI_TEMPERATURE= # OpenAI的温度
+OPENAI_LIMIT_HISTORY= # OpenAI的历史限制
+AIUI_APP_KEY= # AIUI的AppKey
+AIUI_APP_ID= # AIUI的AppId
+XINGHUO_ACCESS_TOKEN= # 星火大模型的访问令牌
+```
+可以写在项目中的.env也可以放到系统环境变量中。
