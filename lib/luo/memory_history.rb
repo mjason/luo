@@ -26,6 +26,10 @@ module Luo
       @queue << element
     end
 
+    def clone
+      Marshal.load(Marshal.dump(self))
+    end
+
     def user(content)
       enqueue({role: "user", content: content})
     end

@@ -7,7 +7,8 @@ module Luo
 
     setting :language, default: "en"
 
-    def initialize
+    def initialize(histories: nil)
+      context.histories = histories unless histories.nil?
       on_init
     end
 

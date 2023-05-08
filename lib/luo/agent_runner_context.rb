@@ -2,6 +2,9 @@
 
 module Luo
   class AgentRunnerContext
+    include Configurable
+    setting :history_adapter, default: MemoryHistory
+
     attr_accessor :user_input, :action_input, :response, :agent_results, :final_result, :messages, :retries
 
     def initialize
@@ -10,7 +13,7 @@ module Luo
     end
 
     def histories
-      @histories ||= MemoryHistory.new
+      @histories ||= config.history_adapter.new
     end
 
     def histories=(histories)
