@@ -32,7 +32,7 @@ RSpec.describe Luo::OpenAI do
     context 'when passing valid parameters' do
 
       it 'should return a response' do
-        expect(openai.create_embedding(text)).not_to be_nil
+        expect(openai.create_embeddings(text)).not_to be_nil
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe Luo::OpenAI do
       let(:text) { nil }
 
       it 'should return an error' do
-        expect(openai.create_embedding(text).to_h).to include(:input)
+        expect(openai.create_embeddings(text).to_h).to include(:input)
       end
     end
   end
