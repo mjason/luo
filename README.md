@@ -1,34 +1,101 @@
 # Luo
+是一款基于大模型的开发框架（面向产品经理），当前支持大模型提供商有: OpenAI、星火大模型。通过DSL能够快速创作并且测试大模型的效果。
 
-TODO: Delete this and the text below, and describe your gem
+## 安装
+```
+gem install luo
+```
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/luo`. To experiment with that code, run `bin/console` for an interactive prompt.
+## 环境变量说明
+```Bash
+OPENAI_ACCESS_TOKEN= # OpenAI的访问令牌
+OPENAI_TEMPERATURE= # OpenAI的温度
+OPENAI_LIMIT_HISTORY= # OpenAI的历史限制
+AIUI_APP_KEY= # AIUI的AppKey
+AIUI_APP_ID= # AIUI的AppId
+XINGHUO_ACCESS_TOKEN= # 星火大模型的访问令牌
+```
+可以写在项目中的.env也可以放到系统环境变量中。
 
-## Installation
+## 使用
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+### Hello World
+1. mkdir demo
+2. cd demo
+3. luo init
+4. 修改 .env 的环境变量
+5. ruby application.rb
 
-Install the gem and add to the application's Gemfile by executing:
+### Messages 说明
+```ruby
+# 创建一个 Messages 实例
+messages = Luo::Messages.create
 
-    $ bundle add UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+# 添加用户消息，包含文本内容和提示信息
+messages.user(text: "Hello, world!", prompt: TTY::Prompt.new.ask("What's your name?"))
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+# 添加助手消息，来自文件
+messages.assistant(file: 'welcome.md')
 
-    $ gem install UPDATE_WITH_YOUR_GEM_NAME_PRIOR_TO_RELEASE_TO_RUBYGEMS_ORG
+# 添加系统消息，包含文本内容和上下文信息
+messages.system(text: "User logged in", context: { user_id: 123 })
 
-## Usage
+# 将消息转换为数组并打印出来
+puts messages.to_a.inspect
 
-TODO: Write usage instructions here
+# 输出
+[
+  {:role=>"system", :content=>"User logged in"},
+  {:role=>"user", :content=>"Hello, world!"},
+  {:role=>"assistant", :content=>"Welcome to our app!\n"}
+]
+```
+注意：星火大模型的消息类型只支持：user、assistant
 
-## Development
+## History
+Luo 内置了 MemoryHistory 用于处理用户历史对话记录
+```ruby
+history = Luo::MemoryHistory.new
+history.user("Hello, world!")
+history.assistant("Welcome to our app!")
+puts history.to_a.inspect
 
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# 输出
+[
+  {:role=>"user", :content=>"Hello, world!"},
+  {:role=>"assistant", :content=>"Welcome to our app!"}
+]
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# 可以在 Messages 使用
+messages = Luo::Messages.create(history: history)
+```
 
-## Contributing
+## Helpers
+`Luo::Helpers` 模块是一个包含了一些辅助方法的模块，可以在不同的上下文中重用这些方法。其中，包括了 `print_md` 和 `load_test` 两个方法。
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/luo.
+`print_md` 方法用于将 Markdown 格式的文本转换为终端友好的格式，并打印出来。这个方法接受一个参数 `text`，表示需要转换和打印的 Markdown 格式的文本。使用 `print_md` 方法的示例代码如下：
 
-ENV.fetch('OPENAI_HOST', 'https://api.openai.com')
-ENV.fetch('OPENAI_ACCESS_TOKEN')
+```ruby
+text = "# Hello, world!\n\nThis is a **Markdown** text."
+Luo::Helpers.print_md(text)
+```
+
+在上面的示例中，首先定义了一个 Markdown 格式的文本 `text`，然后使用 `print_md` 方法将其转换为终端友好的格式，并打印出来。
+
+`load_test` 方法用于从 YAML 格式的文件中加载测试数据，并对每个测试数据执行指定的块。这个方法接受两个参数：`path` 和块 `block`。其中 `path` 表示 YAML 文件的路径，块 `block` 表示对每个测试数据要执行的操作。使用 `load_test` 方法的示例代码如下：
+
+```ruby
+Luo::Helpers.load_test('tests.yml') do |test_data|
+  # 对每个测试数据执行的操作
+  puts test_data.inspect
+end
+```
+在上面的示例中，我们使用 `load_test` 方法从 `tests.yml` 文件中加载测试数据，并使用块对每个测试数据进行操作。在这个示例中，我们只是简单地使用 `puts` 方法打印出每个测试数据的内容。实际使用中，块 `block` 可以根据需要执行更复杂的操作，例如执行测试用例、生成报告等。
+
+## 补充资源
+1. 基于embedding的知识库对话机器人：https://github.com/ankane/neighbor#openai-embeddings
+```ruby
+def fetch_embeddings(input)
+  Luo::OpenAI.new.create_embeddings(input)
+end
+```
