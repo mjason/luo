@@ -4,6 +4,10 @@ require 'rspec'
 
 RSpec.describe 'Luo::AgentRunnerContext' do
 
+  after do
+    Luo::AgentRunnerContext.config.history_adapter = Luo::MemoryHistory
+  end
+
   it 'should be a default adapter' do
     expect(Luo::AgentRunnerContext.config.history_adapter).to eq Luo::MemoryHistory
   end

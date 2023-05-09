@@ -13,6 +13,14 @@ module Luo
         end
       end
 
+      class Init < Dry::CLI::Command
+        desc "Init Luo Project"
+
+        def call(*)
+          Luo::InitProject.run
+        end
+      end
+
       class Commit < Dry::CLI::Command
         desc "Commit with Luo"
 
@@ -27,6 +35,7 @@ module Luo
 
       register "version", Version, aliases: %w[v -v --version]
       register "commit", Commit, aliases: ["c"]
+      register "init", Init, aliases: ["i"]
     end
 
   end

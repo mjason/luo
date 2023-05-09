@@ -14,10 +14,14 @@ module Luo
     end
 
     class << self
+
+      # Agent 运行被调用时会调用 on_call 方法，注意如果 on_call 方法返回 nil，那么最终结果就会是 nil
       def on_call(&block)
         define_method(:call, &block)
       end
 
+      # Agent 运行被调用时会调用 on_call_with_final_result 方法，
+      # 注意如果 on_call_with_final_result 方法返回 nil，那么最终结果就会是调用一次大模型来获取结果
       def on_call_with_final_result(&block)
         define_method(:call) do
           result = instance_eval(&block)

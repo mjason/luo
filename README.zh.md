@@ -17,6 +17,11 @@ XINGHUO_ACCESS_TOKEN= # 星火大模型的访问令牌
 ```
 可以写在项目中的.env也可以放到系统环境变量中。
 
+## 使用
+
+### Hello World
+
+
 ## 补充资源
 1. 基于embedding的知识库对话机器人：https://github.com/ankane/neighbor#openai-embeddings
 ```ruby
