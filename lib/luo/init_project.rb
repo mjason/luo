@@ -19,10 +19,12 @@ module Luo
 
     def create_templates
       puts "create templates directory"
-      FileUtils.mkdir_p('templates')
+      unless File.directory?('templates')
+        FileUtils.cp_r(File.join(__dir__, 'templates', '.'), 'templates')
+      end
     end
 
-    def agent_directory
+    def create_agent_directory
       puts "create agent directory"
       FileUtils.mkdir_p('agents')
     end
@@ -33,18 +35,29 @@ module Luo
       copy_file('application.rb', 'application.rb')
       copy_file('env', '.env')
       copy_file('time_agent.rb', 'agents/time_agent.rb')
-      copy_file('water_agent.rb', 'agents/water_agent.rb')
+      copy_file('weather_agent.rb', 'agents/weather_agent.rb')
+      copy_file("test.yml", "test.yml")
     end
 
     def copy_file(file_name, target_file_name)
       puts "copy #{file_name} to #{target_file_name}"
-      FileUtils.copy_file(project_template_file(file_name), target_file_name)
+      unless File.exist?(target_file_name)
+        FileUtils.copy_file(project_template_file(file_name), target_file_name)
+      end
     end
 
     def run()
       create_bundle_file
       create_templates
+      create_agent_directory
       create_application
+
+      Helpers.print_md """
+      ## Luo Project Initialized
+      You can now run `bundle install` to install the dependencies
+      and edit .env to add your API key.
+      and `bundle exec ruby application.rb` to run the project.
+      """
     end
 
   end

@@ -1,0 +1,10 @@
+输出的格式错误，根据问题选择合适的工具。
+你可以使用以下工具：
+<% agents.values.each do |agent| -%>
+- <%= agent.agent_name %>：<%= agent.agent_desc %>
+<% end -%>
+刚刚的问题：<%= last_user_input %>
+现在我应该选择什么工具呢？请用以下格式回答：
+```
+调用工具：你要选择的工具是什么？只能在<%= agents.values.map do |a| a.agent_name end.join('，') %>中选择一个
+```
