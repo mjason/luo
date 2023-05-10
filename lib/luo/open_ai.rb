@@ -48,13 +48,13 @@ module Luo
       embeddings(params).body.dig("data").map { |v| v["embedding"] }
     end
 
-    def chat(messages)
+    def chat(messages, temperature: nil)
       if messages.is_a?(Messages)
         messages = messages.to_a
       end
       params = PARAMS.call(
         model: 'gpt-3.5-turbo',
-        temperature: config.temperature,
+        temperature: temperature || config.temperature,
         messages: messages
       )
       return params.errors unless params.success?

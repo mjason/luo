@@ -5,7 +5,7 @@ module Luo
     extend Dry::Initializer
 
     attr_reader :context, :action_input, :client
-    def initialize(context: , action_input: , client: )
+    def initialize(context: nil, action_input: nil, client: nil)
       @context = context
       @action_input = action_input
       @client = client
@@ -29,7 +29,7 @@ module Luo
           result = instance_eval(&block)
           if result.nil?
             messages = context.messages.to_a[0...-1] + [{role: :user, content: context.user_input}]
-            context.final_result = client.chat(messages)
+            context.final_result = client&.chat(messages)
           else
             context.final_result = result
           end

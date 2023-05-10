@@ -23,7 +23,7 @@ module Luo
       client.post('/external/ls_log/aiui_request', params.to_h)
     end
 
-    def chat(messages)
+    def chat(messages, temperature: nil)
       if messages.is_a?(Messages)
         messages = messages.to_a
       end

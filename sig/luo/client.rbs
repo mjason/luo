@@ -1,5 +1,5 @@
 module Luo
   interface _Client
-    def chat: (untyped) -> String
+    def chat: (untyped, temperature: Integer) -> String
   end
 end

@@ -30,7 +30,7 @@ module Luo
       client.post('/external/ls_log/xf_completions', params.to_h)
     end
 
-    def chat(messages)
+    def chat(messages, temperature: nil)
       if messages.is_a?(Messages)
         messages = messages.to_a
       end
@@ -39,7 +39,7 @@ module Luo
         domain: config.domain,
         messages: messages,
         max_tokens: config.max_tokens,
-        random_threshold: config.temperature,
+        random_threshold: temperature || config.temperature,
         uid: config.uid.call
       )
       return params.errors unless params.success?
