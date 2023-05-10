@@ -1,15 +1,10 @@
 name: Docker
 
-#on:
-#  release:
-#    types: [created]
-#    tags:
-#      - 'v*'
-
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
+    tags:
+      - 'v*'
 
 jobs:
   build-and-push-image:
