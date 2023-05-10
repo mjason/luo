@@ -41,10 +41,19 @@ module Luo
         end
       end
 
+      class Bundle < Dry::CLI::Command
+        desc "Bundle with Luo"
+
+        def call(*)
+          exec "bundle install"
+        end
+      end
+
       register "version", Version, aliases: %w[v -v --version]
       register "commit", Commit, aliases: ["c"]
       register "init", Init, aliases: ["i"]
       register "run", Run, aliases: ["r"]
+      register "bundle", Bundle, aliases: ["b"]
 
     end
 
