@@ -1,7 +1,7 @@
 module Luo
   class Agent
     @action_input: untyped
-    @context: AgentRunnerContext
+    @context: AgentRunnerContext?
 
     attr_reader self.agent_desc: String
     attr_reader self.agent_name: String
@@ -9,6 +9,7 @@ module Luo
     def self.on_call_with_final_result: -> untyped
 
     attr_reader action_input: untyped
+    attr_reader client: untyped
     attr_reader context: AgentRunnerContext
 
     def initialize: (AgentRunnerContext) -> untyped
