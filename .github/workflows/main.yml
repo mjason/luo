@@ -6,6 +6,11 @@ name: Docker
 #    tags:
 #      - 'v*'
 
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
