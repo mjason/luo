@@ -2,8 +2,7 @@ name: Docker
 
 on:
   release:
-    tags:
-      - 'v*'
+    types: [published]
 
 jobs:
   build-and-push-image:
