@@ -9,7 +9,7 @@ gem install luo
 ```
 
 ###
-docker run --rm -it -v "$PWD:/workdir" luo_cli_cli -v
+alias luo = 'docker run --rm -it -v "$PWD:/workdir" ghcr.io/mjason/luo:latest'
 
 ## 环境变量说明
 ```Bash
