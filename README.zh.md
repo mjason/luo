@@ -12,7 +12,7 @@ gem install luo
 把下面这行代码添加到 ~/.zshrc 或者 ~/.bashrc 中
 
 ```
-alias luo = 'docker run --rm -it -v "$PWD:/workdir" ghcr.io/mjason/luo:latest'
+alias luo='docker run --rm -it -v "$PWD:/workdir" ghcr.io/mjason/luo:latest'
 ```
 
 

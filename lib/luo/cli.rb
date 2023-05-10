@@ -49,11 +49,21 @@ module Luo
         end
       end
 
+      class Exec < Dry::CLI::Command
+        desc "Exec with Luo"
+        argument :task, type: :string, required: true
+
+        def call(task: ,**)
+          exec task
+        end
+      end
+
       register "version", Version, aliases: %w[v -v --version]
       register "commit", Commit, aliases: ["c"]
       register "init", Init, aliases: ["i"]
       register "run", Run, aliases: ["r"]
       register "bundle", Bundle, aliases: ["b"]
+      register "exec", Exec, aliases: ["e"]
 
     end
 
