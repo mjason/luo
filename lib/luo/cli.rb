@@ -33,9 +33,19 @@ module Luo
         end
       end
 
+      class Run < Dry::CLI::Command
+        desc "Run Luo"
+
+        def call(*)
+          exec "ruby application.rb"
+        end
+      end
+
       register "version", Version, aliases: %w[v -v --version]
       register "commit", Commit, aliases: ["c"]
       register "init", Init, aliases: ["i"]
+      register "run", Run, aliases: ["r"]
+
     end
 
   end

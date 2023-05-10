@@ -2,9 +2,14 @@
 是一款基于大模型的开发框架（面向产品经理），当前支持大模型提供商有: OpenAI、星火大模型。通过DSL能够快速创作并且测试大模型的效果。
 
 ## 安装
+
+### 
 ```
 gem install luo
 ```
+
+###
+docker run --rm -it -v "$PWD:/workdir" luo_cli_cli -v
 
 ## 环境变量说明
 ```Bash
