@@ -34,6 +34,8 @@ module Luo
         end
       end
 
+      alias_method :on_call_with_fallback, :on_call_with_final_result
+      
       def self.create_parameter_method(method_name, not_provided = Object.new, &block)
         define_method(method_name.to_sym) do |content = not_provided|
           if content === not_provided

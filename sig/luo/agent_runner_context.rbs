@@ -12,6 +12,8 @@ module Luo
     attr_accessor retries: Integer
     attr_accessor user_input: String
 
+    def client: -> untyped
+
     def have_running_agents: -> Set[Agent]
 
     def histories: -> MemoryHistory

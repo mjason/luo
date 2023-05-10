@@ -9,10 +9,14 @@ module Luo
     end
 
     def load_test(path, &block)
-      YAML.load_file(path).each do |value|
-        yield(value)
+      data = YAML.load_file(path)
+      if data.is_a?(Array)
+        data.each do |value|
+          yield(value)
+        end
+      else
+        yield(data)
       end
     end
-
   end
 end
