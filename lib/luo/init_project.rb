@@ -9,10 +9,14 @@ module Luo
     end
     def create_bundle_file()
       puts "create Gemfile"
+      version = Luo::VERSION
       unless File.exist?('Gemfile')
+        gemfile = <<-GEMFILE
+        source 'https://rubygems.org'
+        gem 'luo', '~> #{version}'
+        GEMFILE
         File.open('Gemfile', 'w') do |file|
-          file.puts("source 'https://rubygems.org'")
-          file.puts("gem 'luo', '~> 0.1.5'")
+          file.write(gemfile)
         end
       end
     end
