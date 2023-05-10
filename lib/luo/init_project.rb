@@ -11,12 +11,12 @@ module Luo
       puts "create Gemfile"
       version = Luo::VERSION
       unless File.exist?('Gemfile')
-        gemfile = <<-GEMFILE
+        gemfile = <<-GEMFILE.gsub(/^ */, '')
         source 'https://rubygems.org'
         gem 'luo', '~> #{version}'
         GEMFILE
         File.open('Gemfile', 'w') do |file|
-          file.write(gemfile)
+          file.puts(gemfile)
         end
       end
     end
