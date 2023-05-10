@@ -9,7 +9,7 @@ module Luo
     def self.on_call_with_final_result: -> untyped
 
     attr_reader action_input: untyped
-    attr_reader client: untyped
+    attr_reader client: Client?
     attr_reader context: AgentRunnerContext
 
     def initialize: (AgentRunnerContext) -> untyped
@@ -20,5 +20,7 @@ module Luo
 
     attr_reader input: String
     attr_reader row_input: String?
+
+    def call: -> untyped
   end
 end

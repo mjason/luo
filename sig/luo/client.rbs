@@ -1,0 +1,5 @@
+module Luo
+  class Client
+    def chat: (untyped)-> String
+  end
+end

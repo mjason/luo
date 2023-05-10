@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Luo
-  class Xinghuo
+  class Xinghuo < Client
     include Configurable
 
     setting :access_token, default: ENV.fetch('XINGHUO_ACCESS_TOKEN')

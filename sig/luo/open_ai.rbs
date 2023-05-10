@@ -11,6 +11,8 @@ module Luo
 
     def create_embedding: -> untyped
 
+    def create_embeddings: -> untyped
+
     def embeddings: -> untyped
   end
 end
