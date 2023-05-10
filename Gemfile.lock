@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    luo (0.1.14)
+    luo (0.1.15)
       dotenv (~> 2.8, >= 2.8.1)
       dry-cli (~> 1.0)
       dry-configurable (~> 1.0, >= 1.0.1)
