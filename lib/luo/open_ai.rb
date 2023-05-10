@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Luo
-  class OpenAI < Client
+  class OpenAI
     include Configurable
 
     setting :access_token, default: ENV.fetch('OPENAI_ACCESS_TOKEN')

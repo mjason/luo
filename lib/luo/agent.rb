@@ -3,9 +3,9 @@
 module Luo
   class Agent
     extend Dry::Initializer
-    
+
     attr_reader :context, :action_input, :client
-    def initialize(context: nil, action_input: nil, client: nil)
+    def initialize(context: , action_input: , client: )
       @context = context
       @action_input = action_input
       @client = client

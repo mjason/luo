@@ -1,5 +1,5 @@
 module Luo
-  class Client
-    def chat: (untyped)-> String
+  interface _Client
+    def chat: (untyped) -> String
   end
 end
