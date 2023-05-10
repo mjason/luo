@@ -1,12 +1,19 @@
 #!/bin/bash
 
-if [ -z "$(ls -A $PWD/bundle_gems)" ]; then
-  echo "copy bundle gems"
-  docker run --rm -v "$PWD/bundle_gems:/usr/local/bundle_1" ghcr.io/mjason/luo:latest e "cp -r /usr/local/bundle/* /usr/local/bundle_1/"
-fi
+# 性能低
+#if [ -z "$(ls -A $PWD/bundle_gems)" ]; then
+#  echo "copy bundle gems"
+#  docker run --rm -v "$PWD/bundle_gems:/usr/local/bundle_1" ghcr.io/mjason/luo:latest e "cp -r /usr/local/bundle/* /usr/local/bundle_1/"
+#fi
+#
+#docker run --rm -it \
+#  -v "$PWD:/workdir" \
+#  -v "$PWD/bundle_gems:/usr/local/bundle/" \
+#  ghcr.io/mjason/luo:latest \
+#  "$@"
 
+# 性能高
 docker run --rm -it \
   -v "$PWD:/workdir" \
-  -v "$PWD/bundle_gems:/usr/local/bundle/" \
   ghcr.io/mjason/luo:latest \
   "$@"
