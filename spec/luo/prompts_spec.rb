@@ -5,11 +5,10 @@ require 'rspec'
 RSpec.describe Luo::Prompts do
   describe '#define_templates' do
     it 'should define templates' do
-      expect(Luo::Prompts).to respond_to(:luo_agent_input)
-      expect(Luo::Prompts).to respond_to(:luo_agent_system)
-      expect(Luo::Prompts).to respond_to(:luo_agent_tool_input)
-      expect(Luo::Prompts).to respond_to(:luo_xinghuo_agent_input)
-      expect(Luo::Prompts).to respond_to(:luo_xinghuo_agent_tool_input)
+      expect(Luo::Prompts).to respond_to(:agent_input)
+      expect(Luo::Prompts).to respond_to(:agent_system)
+      expect(Luo::Prompts).to respond_to(:agent_tool_input)
+      expect(Luo::Prompts).to respond_to(:xinghuo_agent_input)
     end
   end
 

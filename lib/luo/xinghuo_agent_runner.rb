@@ -12,13 +12,13 @@ module Luo
 
     on_request do
       context.messages = Messages.create(history: context.histories)
-                                 .user(prompt: Luo::Prompts.luo_xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                                 .user(prompt: Luo::Prompts.xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
       response = @xinghuo.chat(context.messages)
       if response.split("\n").select { |line| line.size >1  }.size > 1
         message = Messages.create(history: context.histories)
-                          .user(prompt: Luo::Prompts.luo_xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                          .user(prompt: Luo::Prompts.xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
                           .assistant(text: response)
-                          .user(prompt: Luo::Prompts.luo_xinghuo_response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
+                          .user(prompt: Luo::Prompts.xinghuo_response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
         context.response = @xinghuo.chat(message)
       else
         context.response = response

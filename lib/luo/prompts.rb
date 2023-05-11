@@ -2,15 +2,16 @@
 
 module Luo
   module Prompts
-    TEMPLATES_DIR = "#{__dir__}/templates"
-    PWD = ENV['LUO_ENV'] == 'test' ? "#{Dir.pwd}/spec/luo" : Dir.pwd
-    RUNTIME_TEMPLATES_DIR = "#{PWD}/templates"
+    extend Dry::Configurable
+
+    setting :gem_templates_dir, default: "#{__dir__}/templates"
+    setting :prompts_dir, default: "#{Dir.pwd}/prompts"
 
     extend self
 
     def define_templates
-      define_templates_in_dir(TEMPLATES_DIR)
-      define_templates_in_dir(RUNTIME_TEMPLATES_DIR)
+      define_templates_in_dir(config.gem_templates_dir)
+      define_templates_in_dir(config.prompts_dir)
     end
 
     def define_templates_in_dir(dir_path)

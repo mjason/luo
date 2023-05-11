@@ -13,8 +13,8 @@ module Luo
 
     on_request do
       context.messages = Messages.create(history: context.histories)
-                         .system(prompt: Luo::Prompts.luo_agent_system)
-                         .user(prompt: Luo::Prompts.luo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                         .system(prompt: Luo::Prompts.agent_system)
+                         .user(prompt: Luo::Prompts.agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
       context.response = @openai.chat(context.messages)
     end
 
@@ -39,7 +39,7 @@ module Luo
     after_run do
       if context.retries < config.retires && context.final_result.nil?
         context.messages = context.messages.assistant(
-          prompt: Luo::Prompts.luo_agent_tool_input,
+          prompt: Luo::Prompts.agent_tool_input,
           context: {
             tools_response: context.agent_results
           }

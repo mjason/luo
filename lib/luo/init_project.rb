@@ -24,7 +24,7 @@ module Luo
     def create_templates
       puts "create templates directory"
       unless File.directory?('templates')
-        FileUtils.cp_r(File.join(__dir__, 'templates', '.'), 'templates')
+        FileUtils.cp_r(File.join(__dir__, 'projects', 'prompts'), 'prompts')
       end
     end
 

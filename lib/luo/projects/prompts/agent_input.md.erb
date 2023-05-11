@@ -1,0 +1,39 @@
+TOOLS
+------
+Assistant can ask the user to use tools to look up information that may be helpful in answering the users original question. The tools the human can use are:
+
+<% agents.values.each do |agent| -%>
+> <%= agent.agent_name %>: <%= agent.agent_desc %>
+<% end -%>
+
+RESPONSE FORMAT INSTRUCTIONS
+----------------------------
+
+When responding to me please, please output a response in one of two formats:
+
+**Option 1:**
+Use this if you want humans to use the tools.
+Markdown code snippet formatted in the following schema:
+
+```json
+[{
+  "action": string \ The action to take. Must be one of <%= agents.values.map do |a| a.agent_name end.join(', ') %>
+  "action_input": string \ The input to the action
+}]
+```
+
+**Option #2:**
+Use this if you want to respond directly to the human. Markdown code snippet formatted in the following schema:
+
+```json
+{
+  "action": "Final Answer",
+  "action_input": string \ You should put what you want to return to use here <%= Luo::AgentRunnerBase.language_info %>
+}
+```
+
+USER'S INPUT
+--------------------
+Here is the user's input (Remember to respond to a single or multiple actions with a json blob of markdown code snippets, and NOTHING else):
+
+<%= last_user_input %>
