@@ -36,7 +36,7 @@ module Luo
     def create_application
       puts "create application"
       copy_file('init.rb', 'init.rb')
-      copy_file('application.rb', 'application.rb')
+      copy_file('application.rb', 'app.rb')
       copy_file('env', '.env')
       copy_file('time_agent.rb', 'agents/time_agent.rb')
       copy_file('weather_agent.rb', 'agents/weather_agent.rb')

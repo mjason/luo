@@ -37,7 +37,7 @@ module Luo
         desc "Run Luo"
 
         def call(*)
-          exec "ruby application.rb"
+          exec "ruby app.rb"
         end
       end
 
