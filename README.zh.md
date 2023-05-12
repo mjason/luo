@@ -3,18 +3,19 @@
 
 ## 安装
 
-### 
+### ruby 原生（不推荐）
 ```
 gem install luo
 ```
 
-###
-把下面这行代码添加到 ~/.zshrc 或者 ~/.bashrc 中
+### docker （推荐）
+1. 安装docker
 
 ```
-alias luo='docker run --rm -it -v "$PWD:/workdir" ghcr.io/mjason/luo:latest'
+docker pull ghcr.io/mjason/luo:latest
+# 把下面这句话添加到 ~/.bashrc 或者 ~/.zshrc
+alias luo='docker run --rm -it -p 8888:8888 -v "$PWD:/workdir" ghcr.io/mjason/luo:latest'
 ```
-
 
 ## 环境变量说明
 ```Bash
@@ -34,7 +35,7 @@ XINGHUO_ACCESS_TOKEN= # 星火大模型的访问令牌
 2. cd demo
 3. luo init
 4. 修改 .env 的环境变量
-5. ruby application.rb
+5. luo r
 
 ### Messages 说明
 ```ruby
