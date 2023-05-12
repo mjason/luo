@@ -37,7 +37,7 @@ module Luo
         desc "Run Luo"
 
         def call(*)
-          exec "ruby app.rb"
+          exec "jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root"
         end
       end
 

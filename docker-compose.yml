@@ -1,0 +1,6 @@
+services:
+  luo:
+    build: .
+    command: r
+    ports:
+      - 8888:8888

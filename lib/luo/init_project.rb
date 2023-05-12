@@ -40,6 +40,7 @@ module Luo
       copy_file('env', '.env')
       copy_file('time_agent.rb', 'agents/time_agent.rb')
       copy_file('weather_agent.rb', 'agents/weather_agent.rb')
+      copy_file('luo.ipynb', 'luo.ipynb')
       copy_file("test.yml", "test.yml")
     end
 
