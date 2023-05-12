@@ -1,19 +1,14 @@
 #!/bin/bash
 
-# 性能低
-#if [ -z "$(ls -A $PWD/bundle_gems)" ]; then
-#  echo "copy bundle gems"
-#  docker run --rm -v "$PWD/bundle_gems:/usr/local/bundle_1" ghcr.io/mjason/luo:latest e "cp -r /usr/local/bundle/* /usr/local/bundle_1/"
-#fi
-#
-#docker run --rm -it \
-#  -v "$PWD:/workdir" \
-#  -v "$PWD/bundle_gems:/usr/local/bundle/" \
-#  ghcr.io/mjason/luo:latest \
-#  "$@"
+if [[ $1 == "update" ]]; then
+  echo "Pulling the latest Docker image..."
+  docker pull ghcr.io/mjason/luo:latest
+fi
 
-# 性能高
+echo "Running the Docker container..."
+
 docker run --rm -it \
+  -p 8888:8888 \
   -v "$PWD:/workdir" \
   ghcr.io/mjason/luo:latest \
   "$@"
