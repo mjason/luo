@@ -15,6 +15,7 @@ module Luo
         source 'https://rubygems.org'
         gem 'luo', '~> #{version}'
         gem 'iruby'
+        gem 'pry'
         GEMFILE
         File.open('Gemfile', 'w') do |file|
           file.puts(gemfile)
