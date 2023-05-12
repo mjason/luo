@@ -14,6 +14,7 @@ module Luo
         gemfile = <<-GEMFILE.gsub(/^ */, '')
         source 'https://rubygems.org'
         gem 'luo', '~> #{version}'
+        gem 'iruby'
         GEMFILE
         File.open('Gemfile', 'w') do |file|
           file.puts(gemfile)
