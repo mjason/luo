@@ -38,7 +38,7 @@ RSpec.describe Luo::InitProject do
 
     it "creates the application files and copies the template files" do
       expect(Luo::InitProject).to receive(:copy_file).with("init.rb", "init.rb")
-      expect(Luo::InitProject).to receive(:copy_file).with("application.rb", "application.rb")
+      expect(Luo::InitProject).to receive(:copy_file).with("application.rb", "app.rb")
       expect(Luo::InitProject).to receive(:copy_file).with("env", ".env")
       expect(Luo::InitProject).to receive(:copy_file).with("time_agent.rb", "agents/time_agent.rb")
       expect(Luo::InitProject).to receive(:copy_file).with("weather_agent.rb", "agents/weather_agent.rb")
