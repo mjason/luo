@@ -14,6 +14,7 @@ require 'yaml'
 require 'tty-markdown'
 require 'fileutils'
 require 'dry-initializer'
+require 'uri'
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
