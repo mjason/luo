@@ -8,6 +8,7 @@ module Luo
     setting :retries, default: ENV.fetch('OPENAI_REQUEST_RETRIES', 3).to_i
     setting :host, default: ENV.fetch('OPENAI_HOST', 'https://api.openai.com')
     setting :temperature, default: ENV.fetch('OPENAI_TEMPERATURE', 1).to_i
+    setting :model, default: ENV.fetch('OPENAI_CHAT_MODEL', 'gpt-3.5-turbo')
 
     include HttpClient.init_client
 
@@ -53,7 +54,7 @@ module Luo
         messages = messages.to_a
       end
       params = PARAMS.call(
-        model: 'gpt-3.5-turbo',
+        model: config.model,
         temperature: temperature || config.temperature,
         messages: messages
       )
