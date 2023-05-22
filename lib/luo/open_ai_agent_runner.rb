@@ -18,8 +18,14 @@ module Luo
       context.response = @openai.chat(context.messages)
     end
 
+    ##
+    # TODO: 用markdown解析库来解析response
     on_result do
-      actions = JSON.parse(context.response)
+      begin
+        actions = JSON.parse(context.response)
+      rescue JSON::ParserError => e
+        actions = JSON.parse ParserMarkdown.new(context.response).code
+      end
       actions = [actions] if actions.is_a?(Hash)
       actions.each do |action|
         agent = self.class.agents[action['action']]&.new(

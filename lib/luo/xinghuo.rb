@@ -4,11 +4,11 @@ module Luo
   class Xinghuo
     include Configurable
 
-    setting :access_token, default: ENV.fetch('XINGHUO_ACCESS_TOKEN')
-    setting :retries, default: ENV.fetch('XINGHUO_REQUEST_RETRIES', 3).to_i
-    setting :host, default: ENV.fetch('XINGHUO_HOST', 'https://integration-api.iflyos.cn/')
-    setting :history_limit, default: ENV.fetch('XINGHUO_LIMIT_HISTORY', '6').to_i * 2
-    setting :temperature, default: ENV.fetch('XINGHUO_TEMPERATURE', 0).to_i
+    setting :access_token, default: ENV.fetch('LISTENAI_ACCESS_TOKEN')
+    setting :retries, default: ENV.fetch('LISTENAI_REQUEST_RETRIES', 3).to_i
+    setting :host, default: ENV.fetch('LISTENAI_HOST', 'https://api.listenai.com')
+    setting :history_limit, default: ENV.fetch('LISTENAI_LIMIT_HISTORY', '6').to_i * 2
+    setting :random_threshold, default: ENV.fetch('LISTENAI_TEMPERATURE', 0).to_i
     setting :auditing, default: 'default'
     setting :domain, default: 'general'
     setting :max_tokens, default: 1024
@@ -22,15 +22,16 @@ module Luo
       optional(:domain).maybe(:string)
       optional(:max_tokens).maybe(:integer)
       optional(:random_threshold).maybe(:float)
+      optional(:uid).maybe(:string)
     end
 
     # header uid max length is 32 todo
 
     def request_chat(params)
-      client.post('/external/ls_log/xf_completions', params.to_h)
+      client.post('/v1/spark/completions', params.to_h)
     end
 
-    def chat(messages, temperature: nil)
+    def chat(messages, random_threshold: nil)
       if messages.is_a?(Messages)
         messages = messages.to_a
       end
@@ -39,7 +40,7 @@ module Luo
         domain: config.domain,
         messages: messages,
         max_tokens: config.max_tokens,
-        random_threshold: temperature || config.temperature,
+        random_threshold: random_threshold || config.random_threshold,
         uid: config.uid.call
       )
       return params.errors unless params.success?

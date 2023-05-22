@@ -37,6 +37,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'dry-configurable', '~> 1.0', '>= 1.0.1'
   spec.add_dependency 'dry-cli', '~> 1.0'
   spec.add_dependency 'tty-markdown', '~> 0.7.2'
+  spec.add_dependency 'redcarpet', '~> 3.6'
 
   spec.add_development_dependency "rspec", '~> 3.12'
 

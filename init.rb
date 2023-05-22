@@ -6,11 +6,10 @@ Bundler.require
 require 'luo'
 include Luo
 
-Loader.push_dir(File.join(__dir__, 'agents'))
-Loader.setup
 
-begin
-  IRuby::Kernel.instance.switch_backend!(:pry)
-rescue => e
-  #
-end
+
+text = """
+# 一级标题
+"""
+markdown = ParserMarkdown.new(text)
+binding.irb

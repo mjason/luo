@@ -15,6 +15,7 @@ require 'tty-markdown'
 require 'fileutils'
 require 'dry-initializer'
 require 'uri'
+require 'redcarpet'
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
