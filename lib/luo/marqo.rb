@@ -5,7 +5,7 @@ module Luo
     include Configurable
     setting :host, default: "http://localhost:8882"
     setting :x_api_key, default: nil
-    setting :retries, default: ENV.fetch('OPENAI_REQUEST_RETRIES', 3).to_i
+    setting :retries, default: 3
 
     include HttpClient.init_client(headers: { 'X-API-KEY' => config.x_api_key })
 

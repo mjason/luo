@@ -13,7 +13,7 @@ module Luo
       unless File.exist?('Gemfile')
         gemfile = <<-GEMFILE.gsub(/^ */, '')
         source 'https://rubygems.org'
-        gem 'luo', '~> #{version}'
+        gem 'luo'
         gem 'iruby'
         gem 'pry'
         GEMFILE

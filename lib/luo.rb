@@ -3,7 +3,7 @@
 # require_relative "luo/version"
 
 require 'erb'
-require 'dotenv/load'
+require 'dotenv'
 require 'json'
 require 'faraday'
 require 'faraday/retry'
@@ -28,4 +28,8 @@ loader.setup
 module Luo
   class Error < StandardError; end
   # Your code goes here...
+
+  module_eval do
+    Dotenv.load('luo.env', '.env')
+  end
 end
