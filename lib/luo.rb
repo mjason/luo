@@ -32,4 +32,21 @@ module Luo
   module_eval do
     Dotenv.load('luo.env', '.env')
   end
+
+  def self.app_setup(&block)
+    include Luo
+    block.call(Loader) if block_given?
+    Loader.setup
+  end
+
+  def self.notebook_setup(&block)
+    include Luo
+    block.call(Loader) if block_given?
+    Loader.setup
+    if Helpers.gem_exists?('pry')
+      require 'pry'
+      IRuby::Kernel.instance.switch_backend!(:pry)
+    end
+  end
+
 end

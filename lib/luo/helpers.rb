@@ -18,5 +18,13 @@ module Luo
         yield(data)
       end
     end
+
+    def gem_exists?(gem_name)
+      Gem::Specification.find_by_name(gem_name)
+      true
+    rescue Gem::LoadError
+      false
+    end
+
   end
 end

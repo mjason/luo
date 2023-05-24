@@ -1,4 +1,8 @@
-require_relative 'init'
+require 'luo'
+
+Luo.app_setup do |loader|
+  loader.push_dir(File.join(__dir__, 'agents'))
+end
 
 class Runner < XinghuoAgentRunner
   register WeatherAgent
