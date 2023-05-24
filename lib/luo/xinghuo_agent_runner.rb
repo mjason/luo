@@ -5,6 +5,10 @@ module Luo
     include Configurable
 
     setting :retires, default: 3
+    setting :prompts do
+      setting :input, default: Luo::Prompts.xinghuo_agent_input
+      setting :response_error, default: Luo::Prompts.xinghuo_response_error
+    end
 
     on_init do
       @xinghuo = Xinghuo.new
@@ -12,13 +16,13 @@ module Luo
 
     on_request do
       context.messages = Messages.create(history: context.histories)
-                                 .user(prompt: Luo::Prompts.xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                                 .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
       response = @xinghuo.chat(context.messages)
       if response.split("\n").select { |line| line.size >1  }.size > 1
         message = Messages.create(history: context.histories)
-                          .user(prompt: Luo::Prompts.xinghuo_agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                          .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
                           .assistant(text: response)
-                          .user(prompt: Luo::Prompts.xinghuo_response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
+                          .user(prompt: config.prompts.response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
         context.response = @xinghuo.chat(message)
       else
         context.response = response

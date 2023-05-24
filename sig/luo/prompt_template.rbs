@@ -1,6 +1,6 @@
 module Luo
   class PromptTemplate
-    @file_path: string
+    @file_path: String?
     @template: ERB
 
     def self.create: -> PromptTemplate

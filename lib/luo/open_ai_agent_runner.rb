@@ -6,6 +6,11 @@ module Luo
     include Configurable
 
     setting :retires, default: 3
+    setting :prompts do
+      setting :input, default: Luo::Prompts.agent_input
+      setting :system, default: Luo::Prompts.agent_system
+      setting :tool_input, default: Luo::Prompts.agent_tool_input
+    end
 
     on_init do
       @openai = OpenAI.new
@@ -13,8 +18,8 @@ module Luo
 
     on_request do
       context.messages = Messages.create(history: context.histories)
-                         .system(prompt: Luo::Prompts.agent_system)
-                         .user(prompt: Luo::Prompts.agent_input, context: {agents: self.class.agents, last_user_input: context.user_input})
+                         .system(prompt: config.prompts.system)
+                         .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
       context.response = @openai.chat(context.messages)
     end
 
@@ -45,7 +50,7 @@ module Luo
     after_run do
       if context.retries < config.retires && context.final_result.nil?
         context.messages = context.messages.assistant(
-          prompt: Luo::Prompts.agent_tool_input,
+          prompt: config.prompts.tool_input,
           context: {
             tools_response: context.agent_results
           }

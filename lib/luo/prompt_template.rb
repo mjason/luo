@@ -2,9 +2,13 @@
 
 module Luo
   class PromptTemplate
-    def initialize(file_path)
+    def initialize(file_path = nil, text: nil)
       @file_path = file_path
-      @template = ERB.new(File.read(@file_path), trim_mode: '-')
+      if text.nil? && !@file_path.nil?
+        @template = ERB.new(File.read(@file_path), trim_mode: '-')
+      else
+        @template = ERB.new(text, trim_mode: '-')
+      end
     end
 
     def render(data = {})
@@ -31,7 +35,7 @@ module Luo
       end
 
       def load_template(file_name)
-        self.new File.join(File.dirname(__FILE__), 'templates', file_name)
+        self.new File.join(__dir__, '../../templates', 'prompts', file_name)
       end
     end
 

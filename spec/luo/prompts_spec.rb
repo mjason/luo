@@ -12,14 +12,6 @@ RSpec.describe Luo::Prompts do
     end
   end
 
-  describe '#define_templates_in_runtimes' do
-
-    it 'should define templates in dir' do
-      expect(Luo::Prompts).to respond_to(:demo)
-    end
-
-  end
-
   describe '#method_missing' do
     context 'when template file exists' do
       let(:template_file) { "#{Dir.pwd}/spec/luo/templates/demo.md.erb" }

@@ -4,7 +4,7 @@ module Luo
   module Prompts
     extend Dry::Configurable
 
-    setting :gem_templates_dir, default: "#{__dir__}/templates"
+    setting :gem_templates_dir, default: "#{__dir__}/../../templates/prompts"
     setting :prompts_dir, default: "#{Dir.pwd}/prompts"
 
     extend self
@@ -15,7 +15,8 @@ module Luo
     end
 
     def define_templates_in_dir(dir_path)
-      Dir.glob("#{dir_path}/*.md.erb") do |file|
+      path = Pathname.new(dir_path).expand_path.join("*.md.erb").to_s
+      Dir.glob(path) do |file|
         template_name = File.basename(file, '.md.erb').to_sym
         define_template(template_name, file)
       end
