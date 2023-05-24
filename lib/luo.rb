@@ -41,6 +41,8 @@ module Luo
 
   def self.notebook_setup(&block)
     TOPLEVEL_BINDING.eval('include Luo')
+    Object.prepend Luo::ErrorHandle if ENV['LUO_ENV'] == 'debug'
+
     block.call(Loader) if block_given?
     Loader.setup
     if Helpers.gem_exists?('pry')

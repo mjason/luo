@@ -20,16 +20,7 @@ module Luo
     end
 
     def display_md(text)
-      unless gem_exists?('iruby')
-        raise "Please install iruby gem first."
-      end
-
-      if gem_exists?('rouge')
-        renderer = HTMLwithRouge.new
-      else
-        renderer = Redcarpet::Render::HTML.new
-      end
-
+      renderer = HTMLwithRouge.new
       markdown = Redcarpet::Markdown.new(renderer,
                                          autolink: true,
                                          tables: true,
