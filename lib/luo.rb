@@ -34,13 +34,13 @@ module Luo
   end
 
   def self.app_setup(&block)
-    include Luo
+    TOPLEVEL_BINDING.eval('include Luo')
     block.call(Loader) if block_given?
     Loader.setup
   end
 
   def self.notebook_setup(&block)
-    include Luo
+    TOPLEVEL_BINDING.eval('include Luo')
     block.call(Loader) if block_given?
     Loader.setup
     if Helpers.gem_exists?('pry')

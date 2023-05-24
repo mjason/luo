@@ -10,6 +10,11 @@ module Luo
         copy_file "luo.ipynb", "luo.ipynb"
       end
 
+      def copy_gemfile
+        say "Copying Gemfile...", :green
+        copy_file "NotebookGemfile", "Gemfile"
+      end
+
     end
   end
 end
