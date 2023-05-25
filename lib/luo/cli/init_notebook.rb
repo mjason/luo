@@ -12,7 +12,7 @@ module Luo
 
       def copy_gemfile
         say "Copying Gemfile...", :green
-        copy_file "NotebookGemfile", "Gemfile"
+        template "NotebookGemfile.erb", "Gemfile"
       end
 
     end
