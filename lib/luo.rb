@@ -27,6 +27,7 @@ loader.setup
 
 module Luo
   class Error < StandardError; end
+  class ClientNotSetError < StandardError; end
   # Your code goes here...
 
   module_eval do

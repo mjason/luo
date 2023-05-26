@@ -10,7 +10,7 @@ RSpec.describe Luo::MemoryHistory do
     end
 
     it 'should create an empty queue with custom size' do
-      history = Luo::MemoryHistory.new(5)
+      history = Luo::MemoryHistory.new(max_size: 5)
       expect(history.size).to eq 0
     end
   end
@@ -23,7 +23,7 @@ RSpec.describe Luo::MemoryHistory do
     end
 
     it 'should remove oldest element if queue is at maximum size' do
-      history = Luo::MemoryHistory.new(2)
+      history = Luo::MemoryHistory.new(max_size: 2)
       history.enqueue("message 1")
       history.enqueue("message 2")
       history.enqueue("message 3")
@@ -39,7 +39,7 @@ RSpec.describe Luo::MemoryHistory do
     end
 
     it 'should remove oldest element if queue is at maximum size' do
-      history = Luo::MemoryHistory.new(2)
+      history = Luo::MemoryHistory.new(max_size: 2)
       history.push("message 1")
       history.push("message 2")
       history.push("message 3")
@@ -86,6 +86,16 @@ RSpec.describe Luo::MemoryHistory do
       history.enqueue("message 1")
       history.enqueue("message 2")
       expect(history.to_json).to eq "[\n  \"message 1\",\n  \"message 2\"\n]"
+    end
+  end
+
+  describe 'save context model' do
+    it 'should save context model' do
+      history = Luo::MemoryHistory.new
+      history.save("input", "output")
+      expect(history.size).to eq 1
+      expect(history.context_model).to eq true
+      expect(history.to_a).to eq [{:role=>"user", :content=>"input"}, {:role=>"assistant", :content=>"output"}]
     end
   end
 end

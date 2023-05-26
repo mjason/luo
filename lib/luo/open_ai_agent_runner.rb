@@ -12,19 +12,15 @@ module Luo
       setting :tool_input, default: Luo::Prompts.agent_tool_input
     end
 
-    on_init do
-      @openai = OpenAI.new
-    end
+    setting :client, default: Luo::OpenAI.new
 
     on_request do
-      context.messages = Messages.create(history: context.histories)
+      context.messages = Messages.create(history: context.histories.search(context.user_input))
                          .system(prompt: config.prompts.system)
                          .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
-      context.response = @openai.chat(context.messages)
+      context.response = client.chat(context.messages)
     end
 
-    ##
-    # TODO: 用markdown解析库来解析response
     on_result do
       begin
         actions = JSON.parse(context.response)
@@ -36,13 +32,13 @@ module Luo
         agent = self.class.agents[action['action']]&.new(
           context: context,
           action_input: action['action_input'],
-          client: @openai
+          client: client
         )
         add_agent(agent) if agent
         if action['action'] == "Final Answer"
           context.final_result = action['action_input']
-          context.histories.user(context.user_input)
-          context.histories.assistant(context.final_result)
+
+          save_history
         end
       end
     end
@@ -55,7 +51,7 @@ module Luo
             tools_response: context.agent_results
           }
         )
-        context.response = @openai.chat(context.messages)
+        context.response = client.chat(context.messages)
         context.retries += 1
         on_result
         on_run

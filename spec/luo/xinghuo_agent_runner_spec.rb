@@ -29,7 +29,7 @@ RSpec.describe 'Luo::XinghuoAgentRunner' do
     expect(context.final_result).not_to be_nil
     expect(context2.final_result).not_to be_nil
 
-    expect(context.histories.size).to eq(2)
-    expect(context2.histories.size).to eq(4)
+    expect(context.histories.size).to eq(1)
+    expect(context2.histories.size).to eq(2)
   end
 end

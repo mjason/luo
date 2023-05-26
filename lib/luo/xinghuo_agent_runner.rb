@@ -9,21 +9,18 @@ module Luo
       setting :input, default: Luo::Prompts.xinghuo_agent_input
       setting :response_error, default: Luo::Prompts.xinghuo_response_error
     end
-
-    on_init do
-      @xinghuo = Xinghuo.new
-    end
+    setting :client, default: Luo::Xinghuo.new
 
     on_request do
-      context.messages = Messages.create(history: context.histories)
+      context.messages = Messages.create(history: context.histories.search(context.user_input))
                                  .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
-      response = @xinghuo.chat(context.messages)
+      response = client.chat(context.messages)
       if response.split("\n").select { |line| line.size >1  }.size > 1
-        message = Messages.create(history: context.histories)
+        message = Messages.create(history: context.histories.search(context.user_input))
                           .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
                           .assistant(text: response)
                           .user(prompt: config.prompts.response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
-        context.response = @xinghuo.chat(message)
+        context.response = client.chat(message)
       else
         context.response = response
       end
@@ -35,12 +32,12 @@ module Luo
         agent = self.class.agents[agent_name]&.new(
           context: context,
           action_input: context.user_input,
-          client: @xinghuo
+          client: client
         )
         add_agent(agent)
       else
-        messages = Messages.create(history: context.histories).user(text: context.user_input)
-        context.final_result = @xinghuo.chat(messages)
+        messages = Messages.create(history: context.histories.search(context.user_input)).user(text: context.user_input)
+        context.final_result = client.chat(messages)
       end
     end
 
@@ -50,8 +47,7 @@ module Luo
         context.final_result = answer if answer
       end
 
-      context.histories.user(context.user_input)
-      context.histories.assistant(context.final_result)
+      save_history
     end
   end
 
@@ -60,7 +56,7 @@ module Luo
     agent_desc '你可以问我任何问题，我都会尽力回答你'
 
     on_call_with_final_result do
-      messages = Messages.create(history: context.histories).user(text: context.user_input)
+      messages = Messages.create(history: context.histories.search(context.user_input)).user(text: context.user_input)
       client.chat(messages)
     end
 

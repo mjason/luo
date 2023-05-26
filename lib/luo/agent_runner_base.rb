@@ -6,6 +6,8 @@ module Luo
     include Configurable
 
     setting :language, default: "en"
+    setting :client, default: nil
+    setting :context_adapter, default: -> { Luo::AgentRunnerContext.new }
 
     def initialize(histories: nil)
       context.histories = histories unless histories.nil?
@@ -15,13 +17,18 @@ module Luo
     def on_init
     end
 
+    def client
+      raise Luo::ClientNotSetError, "client not set" if self.class.config.client.nil?
+      self.class.config.client
+    end
+
     def context
-      @context ||= Luo::AgentRunnerContext.new
+      @context ||= config.context_adapter.call
     end
 
     def reset_context
       histories = context.histories
-      @context = Luo::AgentRunnerContext.new
+      @context = config.context_adapter.call
       @context.histories = histories
       @context
     end
@@ -59,6 +66,16 @@ module Luo
       context.have_running_agents << agent
     end
 
+    def save_history
+      context.histories.save(context.user_input, context.final_result) if save_history?
+    end
+
+    # @private
+    private
+    def save_history?
+      true
+    end
+
     class << self
 
       def agents
@@ -82,6 +99,12 @@ module Luo
           "(must be a Chinese string)"
         else
           ""
+        end
+      end
+
+      def disable_history
+        define_method(:save_history?) do
+          false
         end
       end
 
