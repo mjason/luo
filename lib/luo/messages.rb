@@ -41,8 +41,12 @@ module Luo
     end
 
     class << self
-      def create(history: [])
-        self.new(history: history)
+      def create(history: nil)
+        if history
+          self.new(history: history)
+        else
+          self.new(history: [])
+        end
       end
     end
 

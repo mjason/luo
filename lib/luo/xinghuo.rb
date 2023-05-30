@@ -47,5 +47,14 @@ module Luo
       request_chat(params).body.dig('choices', 0, 'message', 'content')
     end
 
+    class << self
+      def llm_func_adapter
+        client = self.new
+        Proc.new do |messages, temperature|
+          client.chat(messages, random_threshold: temperature)
+        end
+      end
+    end
+
   end
 end

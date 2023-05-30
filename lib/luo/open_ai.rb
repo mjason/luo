@@ -62,6 +62,16 @@ module Luo
       chat_completions(params).body.dig("choices", 0, "message", "content")
     end
 
+    class << self
+      def llm_func_adapter
+        client = self.new
+        Proc.new do |messages, temperature|
+          client.chat(messages, temperature: temperature)
+        end
+      end
+    end
+
+
   end
 
 end

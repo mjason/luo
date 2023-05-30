@@ -23,6 +23,7 @@ loader.inflector.inflect("open_ai" => "OpenAI")
 loader.inflector.inflect("aiui" => "AIUI")
 loader.inflector.inflect("cli" => "CLI")
 loader.inflector.inflect("open_ai_agent_runner" => "OpenAIAgentRunner")
+loader.inflector.inflect('llm_func' => 'LLMFunc')
 loader.setup
 
 module Luo
