@@ -20,10 +20,11 @@ module Luo
           messages = messages.system(text: config.system)
         end
 
-        response = config.adapter.call(messages, temperature || config.temperature)
-        env.set(:response, response)
+        output = config.adapter.call(messages, temperature || config.temperature)
+        env.set(:output, output)
       end
 
     end
+
   end
 end

@@ -43,6 +43,10 @@ module Luo
         @meta
       end
 
+      def create_method(name, &block)
+        self.class.send(:define_method, name, &block)
+      end
+
       def self.validate_env!(env)
         raise ArgumentError, "env must be a Luo::Middleware::Env" unless env.is_a? Luo::Middleware::Env
         env

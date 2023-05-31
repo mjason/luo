@@ -16,6 +16,7 @@ require 'dry-initializer'
 require 'uri'
 require 'redcarpet'
 require 'thor'
+require 'logger'
 
 require "zeitwerk"
 loader = Zeitwerk::Loader.for_gem
