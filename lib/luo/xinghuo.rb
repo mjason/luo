@@ -26,10 +26,29 @@ module Luo
       optional(:stream).maybe(:bool)
     end
 
+    EMBEDDING_PARAMS = Dry::Schema.Params do
+      required(:input).filled(:string)
+    end
+
     # header uid max length is 32 todo
 
     def request_chat(params, &block)
       client.post('/v1/spark/completions', params.to_h, &block)
+    end
+
+    def embedding(params)
+      client.post('/v1/embedding', params.to_h)
+    end
+
+    def create_embedding(text, model: 'text-embedding-ada-002')
+      params = EMBEDDING_PARAMS.call(input: text)
+      return params.errors unless params.success?
+      response = embedding(params)
+      if response.success?
+        response.body.dig("data")
+      else
+        raise "create_embeddings failed: #{response.body}"
+      end
     end
 
     def chat(messages, random_threshold: nil, &block)
