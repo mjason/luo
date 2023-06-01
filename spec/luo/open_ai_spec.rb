@@ -11,7 +11,6 @@ RSpec.describe Luo::OpenAI do
     context 'when passing valid parameters' do
 
       it 'should return a response' do
-
         expect(openai.chat(messages)).not_to be_nil
       end
     end

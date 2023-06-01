@@ -46,7 +46,12 @@ module Luo
       end
       params = EMBEDDING_PARAMS.call(input: text, model: model)
       return params.errors unless params.success?
-      embeddings(params).body.dig("data").map { |v| v["embedding"] }
+      response = embeddings(params)
+      if response.success?
+        response.body.dig("data").map { |v| v["embedding"] }
+      else
+        raise "create_embeddings failed: #{response.body}"
+      end
     end
 
     def chat(messages, temperature: nil)
@@ -59,7 +64,12 @@ module Luo
         messages: messages
       )
       return params.errors unless params.success?
-      chat_completions(params).body.dig("choices", 0, "message", "content")
+      response = chat_completions(params)
+      if response.success?
+        response.body.dig("choices", 0, "message", "content")
+      else
+        raise "request_chat failed: #{response.body}"
+      end
     end
 
     class << self

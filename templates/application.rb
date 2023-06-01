@@ -5,6 +5,9 @@ Luo.app_setup do |loader|
 end
 
 class Runner < XinghuoAgentRunner
+
+  setting :stream_callback, default: ->(chunk) { puts chunk }
+
   register WeatherAgent
   register TimeAgent
   register XinghuoFinalAgent

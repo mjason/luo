@@ -10,17 +10,26 @@ module Luo
       setting :response_error, default: Luo::Prompts.xinghuo_response_error
     end
     setting :client, default: Luo::Xinghuo.new
+    setting :stream_callback, default: nil
+
+    def request(messages)
+      if config.stream_callback&.respond_to? :call
+        client.chat(messages, &config.stream_callback)
+      else
+        client.chat(messages)
+      end
+    end
 
     on_request do
       context.messages = Messages.create(history: context.histories.search(context.user_input))
                                  .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
-      response = client.chat(context.messages)
+      response = request(context.messages)
       if response.split("\n").select { |line| line.size >1  }.size > 1
         message = Messages.create(history: context.histories.search(context.user_input))
                           .user(prompt: config.prompts.input, context: {agents: self.class.agents, last_user_input: context.user_input})
                           .assistant(text: response)
                           .user(prompt: config.prompts.response_error, context: {agents: self.class.agents, last_user_input: context.user_input})
-        context.response = client.chat(message)
+        context.response = request(message)
       else
         context.response = response
       end
@@ -37,7 +46,7 @@ module Luo
         add_agent(agent)
       else
         messages = Messages.create(history: context.histories.search(context.user_input)).user(text: context.user_input)
-        context.final_result = client.chat(messages)
+        context.final_result = request(messages)
       end
     end
 

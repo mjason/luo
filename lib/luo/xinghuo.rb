@@ -23,15 +23,16 @@ module Luo
       optional(:max_tokens).maybe(:integer)
       optional(:random_threshold).maybe(:float)
       optional(:uid).maybe(:string)
+      optional(:stream).maybe(:bool)
     end
 
     # header uid max length is 32 todo
 
-    def request_chat(params)
-      client.post('/v1/spark/completions', params.to_h)
+    def request_chat(params, &block)
+      client.post('/v1/spark/completions', params.to_h, &block)
     end
 
-    def chat(messages, random_threshold: nil)
+    def chat(messages, random_threshold: nil, &block)
       if messages.is_a?(Messages)
         messages = messages.to_a
       end
@@ -41,10 +42,36 @@ module Luo
         messages: messages,
         max_tokens: config.max_tokens,
         random_threshold: random_threshold || config.random_threshold,
-        uid: config.uid.call
+        uid: config.uid.call,
+        stream: block_given?
       )
       return params.errors unless params.success?
-      request_chat(params).body.dig('choices', 0, 'message', 'content')
+
+      body = {}
+      if block_given?
+        content = ""
+        response = request_chat(params) do |req|
+          req.options.on_data = Proc.new do |chunk, *|
+            if chunk =~ /data: (.+?)\n(?!data: \[DONE\])/
+              json = JSON.parse($1)
+              content += json.dig('choices', 0, 'delta', 'content')
+              body.merge!(json)
+            end
+            block.call(chunk)
+          end
+        end
+        body['choices'][0]['delta']['content'] = content
+        body['choices'][0]['message'] = body['choices'][0].delete('delta')
+      else
+        response = request_chat(params)
+      end
+
+      if response.success?
+        body = response.body if body.empty?
+        body.dig('choices', 0, 'message', 'content')
+      else
+        raise "request_chat failed: #{response.body}"
+      end
     end
 
     class << self
@@ -52,6 +79,15 @@ module Luo
         client = self.new
         Proc.new do |messages, temperature|
           client.chat(messages, random_threshold: temperature)
+        end
+      end
+
+      def llm_func_adapter_stream
+        client = self.new
+        Proc.new do |messages, temperature|
+          client.chat(messages, random_threshold: temperature) do |chunk|
+            yield chunk
+          end
         end
       end
     end
