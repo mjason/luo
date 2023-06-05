@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Luo
-  class AgentRunnerContext
-    include Configurable
-    setting :history_adapter, default: ->(context) { MemoryHistory.new(context) }
+module Luo::Agent
+  class Context
+    include Luo::Configurable
+    setting :history_adapter, default: ->(context) { Luo::MemoryHistory.new(context) }
 
     attr_accessor :user_input, :action_input, :response, :agent_results, :final_result, :messages, :retries
 

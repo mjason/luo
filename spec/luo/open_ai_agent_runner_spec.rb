@@ -5,7 +5,7 @@ require 'rspec'
 RSpec.describe 'Luo::OpenAIAgentRunner' do
 
   # 天气的Agent
-  class WeatherAgent < Luo::Agent
+  class WeatherAgent < Luo::Agent::Base
     agent_name 'weather'
     agent_desc '通过文本查询天气(注意需要包含完整意图的句子), 例如: 明天天气怎么样'
 
@@ -21,7 +21,7 @@ RSpec.describe 'Luo::OpenAIAgentRunner' do
   end
 
   before do
-    Luo::AgentRunnerBase.config.language = 'zh'
+    Luo::Agent::Runner.config.language = 'zh'
   end
 
   let(:runner) { OpenAIRunner.new }

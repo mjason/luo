@@ -4,7 +4,7 @@ require 'rspec'
 
 RSpec.describe 'Luo::XinghuoAgentRunner' do
 
-  class XinghuoWeatherAgent < Luo::Agent
+  class XinghuoWeatherAgent < Luo::Agent::Base
     agent_name '天气查询'
     agent_desc '查询城市的天气情况，穿衣指数，空气质量等'
 

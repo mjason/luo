@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-module Luo
-  class AgentRunnerBase
+module Luo::Agent
+  class Runner
 
-    include Configurable
+    include Luo::Configurable
 
     setting :language, default: "en"
     setting :client, default: nil
-    setting :context_adapter, default: -> { Luo::AgentRunnerContext.new }
+    setting :context_adapter, default: -> { Luo::Agent::Context.new }
 
     def initialize(histories: nil)
       context.histories = histories unless histories.nil?

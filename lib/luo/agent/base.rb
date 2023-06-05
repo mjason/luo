@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Luo
-  class Agent
+module Luo::Agent
+  class Base
     extend Dry::Initializer
 
     attr_reader :context, :action_input, :client

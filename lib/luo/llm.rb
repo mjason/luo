@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Luo
-  class OpenAIAgentRunner < Agent::OpenAIRunner
-
+  module LLM
   end
 end
