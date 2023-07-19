@@ -8,7 +8,7 @@ module Luo::LLM
     setting :retries, default: ENV.fetch('LISTENAI_REQUEST_RETRIES', 3).to_i
     setting :host, default: ENV.fetch('LISTENAI_HOST', 'https://api.listenai.com')
     setting :history_limit, default: ENV.fetch('LISTENAI_LIMIT_HISTORY', '6').to_i * 2
-    setting :random_threshold, default: ENV.fetch('LISTENAI_TEMPERATURE', 0).to_i
+    setting :random_threshold, default: ENV.fetch('LISTENAI_TEMPERATURE', 0.1).to_f
     setting :auditing, default: 'default'
     setting :domain, default: 'general'
     setting :max_tokens, default: 1024
